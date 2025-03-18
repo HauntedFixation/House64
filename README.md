@@ -24,6 +24,10 @@ Models and textures:
  - TV remote
  - Cobweb
 
-  Code:
-  - Movement script
+Code:
+  - ~~Movement script~~
   - Door script
+
+Sounds:
+- Footsteps
+- Ambience
