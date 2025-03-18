@@ -1,0 +1,59 @@
+[gd_scene load_steps=9 format=3 uid="uid://d07vt1dd0plhr"]
+
+[ext_resource type="Script" uid="uid://dm5wnvba7pq0x" path="res://player.gd" id="1_u52ul"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5xgho"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_u52ul"]
+sky_material = SubResource("ProceduralSkyMaterial_5xgho")
+
+[sub_resource type="Environment" id="Environment_vonw3"]
+background_mode = 2
+sky = SubResource("Sky_u52ul")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_u52ul"]
+size = Vector2(4, 4)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_vonw3"]
+data = PackedVector3Array(2, 0, 2, -2, 0, 2, 2, 0, -2, -2, 0, 2, -2, 0, -2, 2, 0, -2)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_5xgho"]
+radius = 0.3
+height = 1.7
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_u52ul"]
+points = PackedVector3Array(0.261681, 0.680906, 0.0598727, -0.288505, -0.595199, -0.0651786, -0.289798, -0.597897, 0.0591104, 0.285485, -0.627299, -0.0407546, -0.0651786, 0.595199, -0.288505, -0.0898578, 0.594743, 0.281937, 0.107029, -0.563597, 0.278708, -0.266613, 0.652271, -0.0909119, 0.133408, -0.595957, -0.263979, 0.229935, 0.588871, -0.187264, -0.0678589, -0.828121, 0.0873251, -0.138684, -0.591274, -0.261929, -0.138948, -0.617175, 0.256084, -0.257032, 0.531769, 0.153996, -0.0934305, 0.82589, -0.0676846, 0.206277, 0.615896, 0.206277, 0.257721, -0.62107, 0.133455, 0.0614613, -0.827502, -0.0936067, -0.0931979, 0.797958, 0.138382, -0.234286, 0.559585, -0.185686, 0.0848969, 0.654755, -0.267616, 0.163828, 0.796295, -0.0416425, 0.0591413, 0.623183, 0.283591, -0.169222, -0.766137, -0.118033, 0.283588, 0.623177, 0.0591407, 0.111579, -0.791019, 0.137151, -0.289794, 0.597889, 0.0591095, 0.0591095, -0.597889, -0.289794, 0.277831, -0.537355, -0.113035, 0.11158, 0.79102, 0.137151, -0.0407518, -0.627252, 0.285463, 0.281943, 0.594756, -0.0898597)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_vonw3")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.984808, -0.150384, 0.0868241, 0, 0.5, 0.866025, -0.173648, 0.852869, -0.492404, 0, 0, 0)
+shadow_enabled = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("PlaneMesh_u52ul")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="MeshInstance3D"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="MeshInstance3D/StaticBody3D"]
+shape = SubResource("ConcavePolygonShape3D_vonw3")
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_u52ul")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D"]
+mesh = SubResource("CapsuleMesh_5xgho")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D"]
+shape = SubResource("ConvexPolygonShape3D_u52ul")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.422956, 0)
