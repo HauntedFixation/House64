@@ -20,7 +20,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			rotate_y(-event.relative.x * 0.004)
 			camera.rotate_x(-event.relative.y * 0.004)
 			# This clamps the camera rotation so that you cannot keep looking up and down.
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-60), deg_to_rad(60))
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-90), deg_to_rad(90))
 
 func _physics_process(delta: float) -> void:
 	# Add the gravity.
